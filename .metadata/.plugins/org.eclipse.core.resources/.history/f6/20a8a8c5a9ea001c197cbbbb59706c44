@@ -1,0 +1,288 @@
+package vista;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.SwingConstants;
+import javax.swing.JTextField;
+import javax.swing.JComboBox;
+import javax.swing.border.LineBorder;
+
+import utils.validaciones;
+
+import javax.swing.ImageIcon;
+import javax.swing.border.BevelBorder;
+import javax.swing.JTable;
+import javax.swing.JScrollPane;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class FrmMantenimientoCliente extends JFrame implements ActionListener {
+
+	private JPanel contentPane;
+	private JLabel lblMantenimientoCliente;
+	private JLabel lblDatosDelCliente;
+	private JLabel lblCdigo;
+	private JTextField txtCodigo;
+	private JLabel lblNombre;
+	private JTextField txtNombre;
+	private JLabel lblApellido;
+	private JTextField txtApellido;
+	private JLabel lblDireccin;
+	private JTextField txtDireccion;
+	private JLabel lblCelular;
+	private JTextField txtCelular;
+	private JLabel lblNewLabel;
+	private JTable tbCliente;
+	private JScrollPane scrollPane;
+	private JButton btnNuevo;
+	private JButton btnRegistrar;
+	private JButton btnActualizar;
+	private JButton btnEliminar;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					FrmMantenimientoCliente frame = new FrmMantenimientoCliente();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public FrmMantenimientoCliente() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 890, 430);
+		contentPane = new JPanel();
+		contentPane.setBackground(new Color(135, 206, 235));
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		lblMantenimientoCliente = new JLabel("Mantenimiento Cliente");
+		lblMantenimientoCliente.setOpaque(true);
+		lblMantenimientoCliente.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMantenimientoCliente.setForeground(Color.WHITE);
+		lblMantenimientoCliente.setFont(new Font("Trebuchet MS", Font.PLAIN, 18));
+		lblMantenimientoCliente.setBackground(Color.GREEN);
+		lblMantenimientoCliente.setBounds(0, 0, 874, 31);
+		contentPane.add(lblMantenimientoCliente);
+		
+		lblDatosDelCliente = new JLabel("Datos del cliente");
+		lblDatosDelCliente.setHorizontalAlignment(SwingConstants.CENTER);
+		lblDatosDelCliente.setForeground(Color.WHITE);
+		lblDatosDelCliente.setFont(new Font("Trebuchet MS", Font.PLAIN, 19));
+		lblDatosDelCliente.setBackground(Color.WHITE);
+		lblDatosDelCliente.setBounds(633, 74, 186, 49);
+		contentPane.add(lblDatosDelCliente);
+		
+		lblCdigo = new JLabel("C\u00F3digo:");
+		lblCdigo.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
+		lblCdigo.setForeground(Color.WHITE);
+		lblCdigo.setBounds(611, 134, 66, 14);
+		contentPane.add(lblCdigo);
+		
+		txtCodigo = new JTextField();
+		txtCodigo.setText("<dynamic>");
+		txtCodigo.setColumns(10);
+		txtCodigo.setBounds(687, 131, 116, 20);
+		contentPane.add(txtCodigo);
+		
+		lblNombre = new JLabel("Nombre:");
+		lblNombre.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
+		lblNombre.setForeground(Color.WHITE);
+		lblNombre.setBounds(611, 159, 69, 14);
+		contentPane.add(lblNombre);
+		
+		txtNombre = new JTextField();
+		txtNombre.setText("<dynamic>");
+		txtNombre.setColumns(10);
+		txtNombre.setBounds(687, 159, 116, 20);
+		contentPane.add(txtNombre);
+		
+		lblApellido = new JLabel("Apellido:");
+		lblApellido.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
+		lblApellido.setForeground(Color.WHITE);
+		lblApellido.setBounds(611, 190, 66, 14);
+		contentPane.add(lblApellido);
+		
+		txtApellido = new JTextField();
+		txtApellido.setText("<dynamic>");
+		txtApellido.setColumns(10);
+		txtApellido.setBounds(687, 187, 116, 20);
+		contentPane.add(txtApellido);
+		
+		lblDireccin = new JLabel("Direcci\u00F3n:");
+		lblDireccin.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
+		lblDireccin.setForeground(Color.WHITE);
+		lblDireccin.setBounds(611, 215, 66, 14);
+		contentPane.add(lblDireccin);
+		
+		txtDireccion = new JTextField();
+		txtDireccion.setText("<dynamic>");
+		txtDireccion.setColumns(10);
+		txtDireccion.setBounds(688, 212, 116, 20);
+		contentPane.add(txtDireccion);
+		
+		lblCelular = new JLabel("Celular:");
+		lblCelular.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
+		lblCelular.setForeground(Color.WHITE);
+		lblCelular.setBounds(611, 245, 66, 14);
+		contentPane.add(lblCelular);
+		
+		txtCelular = new JTextField();
+		txtCelular.setText("<dynamic>");
+		txtCelular.setColumns(10);
+		txtCelular.setBounds(687, 243, 116, 20);
+		contentPane.add(txtCelular);
+		
+		lblNewLabel = new JLabel("");
+		lblNewLabel.setBorder(new BevelBorder(BevelBorder.RAISED, new Color(0, 255, 255), new Color(34, 139, 34), new Color(0, 250, 154), new Color(165, 42, 42)));
+		lblNewLabel.setIcon(new ImageIcon(FrmMantenimientoCliente.class.getResource("/img/OIP-_1_.jpg")));
+		lblNewLabel.setBounds(577, 69, 265, 223);
+		contentPane.add(lblNewLabel);
+		
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 42, 536, 268);
+		contentPane.add(scrollPane);
+		
+		tbCliente = new JTable();
+		scrollPane.setViewportView(tbCliente);
+		
+		btnNuevo = new JButton("Nuevo");
+		btnNuevo.addActionListener(this);
+		btnNuevo.setIcon(new ImageIcon(FrmMantenimientoCliente.class.getResource("/img/4781840_+_add_circle_create_expand_icon (2).png")));
+		btnNuevo.setBounds(269, 333, 110, 31);
+		contentPane.add(btnNuevo);
+		
+		btnRegistrar = new JButton("Registrar");
+		btnRegistrar.addActionListener(this);
+		btnRegistrar.setIcon(new ImageIcon(FrmMantenimientoCliente.class.getResource("/img/9133514_signup_register_login_icon (1).png")));
+		btnRegistrar.setBounds(402, 333, 131, 31);
+		contentPane.add(btnRegistrar);
+		
+		btnActualizar = new JButton("Actualizar");
+		btnActualizar.setIcon(new ImageIcon(FrmMantenimientoCliente.class.getResource("/img/8111405_reset_reload_refresh_sync_arrow_icon.png")));
+		btnActualizar.setBounds(554, 333, 131, 31);
+		contentPane.add(btnActualizar);
+		
+		btnEliminar = new JButton("Eliminar");
+		btnEliminar.setIcon(new ImageIcon(FrmMantenimientoCliente.class.getResource("/img/3669361_delete_ic_icon (1).png")));
+		btnEliminar.setBounds(707, 333, 135, 31);
+		contentPane.add(btnEliminar);
+	}
+	public void actionPerformed(ActionEvent arg0) {
+		if (arg0.getSource() == btnRegistrar) {
+			actionPerformedBtnRegistrar(arg0);
+		}
+		if (arg0.getSource() == btnNuevo) {
+			actionPerformedBtnNuevo(arg0);
+		}
+	}
+	protected void actionPerformedBtnNuevo(ActionEvent arg0) {
+		txtCodigo.setText("");
+		txtNombre.setText("");
+		txtApellido.setText("");
+		txtDireccion.setText("");
+		txtCelular.setText("");
+		txtCodigo.requestFocus();
+	}
+	protected void actionPerformedBtnRegistrar(ActionEvent arg0) {
+		registrarCliente();
+		cargarDataClientes();
+	}
+
+	private void registrarCliente() {
+		// Declarar variables
+		String cod,nom,ape,dir,cel;
+		// Obtener los valores ingresados en la GUI
+		cod = getCodigo();
+		nom = getNombre();
+		ape = getApellido();
+		dir = getDirección();
+		cel = getCelular();
+		
+	}
+
+	private String getCelular() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private String getDirección() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private String getApellido() {
+		String ape = null;
+		if(txtApellido.getText().trim().length()==0){
+			mensajeError("Ingresar el apellido del usuario");
+			txtApellido.requestFocus();
+			ape = null;
+		}else if(txtNombre.getText().trim().matches(validaciones.APELLIDO) == false){
+			mensajeError("Error en el formato, ingrese sólo letras y de 3 a 45 caracteres");
+			txtApellido.requestFocus();
+			txtApellido.setText("");
+		}else{
+		ape = txtApellido.getText().trim();
+		}
+		return ape;
+	}
+
+	private String getNombre() {
+		// Validar solo letras y tener de 3 a 45 caracteres 
+		String nom = null;
+		if(txtNombre.getText().trim().length()==0){
+			mensajeError("Ingresar el nombre del cliente");
+			txtNombre.requestFocus();
+			nom = null;
+		}else if(txtNombre.getText().trim().matches(validaciones.NOMBRE) == false){
+			mensajeError("Error en el formato, ingrese sólo letras y de 3 a 45 caracteres");
+			txtNombre.requestFocus();
+			txtNombre.setText("");
+		}else{
+		nom = txtNombre.getText().trim();
+		}
+		return nom;
+	}
+
+	private String getCodigo() {
+		String cod = null;
+		if(txtCodigo.getText().trim().length()==0){
+			mensajeError("Ingresar el código del cliente");
+			txtCodigo.requestFocus();
+		}else if(txtCodigo.getText().trim().matches(validaciones.CODCLI) == false){
+			mensajeError("Error en el formato, el código debe empezar con C y solo deben ser 4 dígitos");
+			txtCodigo.requestFocus();
+			txtCodigo.setText("");
+		}
+		else {
+			cod = txtCodigo.getText().trim();
+		}
+		return cod;
+	}
+
+	private void mensajeError(String msj) {
+		JOptionPane.showMessageDialog(this, msj,"Error", 0);
+		
+	}
+}

@@ -1,0 +1,24 @@
+INDEX VERSION 1.127+C:\Users\arn23\Desktop\Cursos 2022-1\Lenguaje de programacion I\Proyecto_Dulce_Villa\.metadata\.plugins\org.eclipse.jdt.core
+2316804980.index
+662276603.index
+2082280030.index
+51350000.index
+3451579075.index
+328831555.index
+3887239080.index
+517780925.index
+2285401568.index
+437385496.index
+3293081449.index
+2647165484.index
+1041729437.index
+1337405666.index
+4170186626.index
+782324809.index
+2935568562.index
+2918204730.index
+2483388913.index
+1976924544.index
+1259408348.index
+1901795707.index
+1095765005.index

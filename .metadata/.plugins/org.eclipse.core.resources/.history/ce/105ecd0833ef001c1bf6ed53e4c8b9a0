@@ -1,0 +1,154 @@
+package vista;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.border.TitledBorder;
+import java.awt.Color;
+import javax.swing.UIManager;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import javax.swing.ImageIcon;
+import java.awt.Cursor;
+import javax.swing.border.LineBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class FrmCDP extends JFrame implements ActionListener {
+
+	private JPanel contentPane;
+	private JPanel panel;
+	private JLabel lblCdigo;
+	private JLabel lblNombre;
+	private JLabel lblApellido;
+	public static JTextField txtCodigo;
+	public static JTextField txtNombre;
+	public static JTextField txtApellido;
+	private JButton btnBuscarCliente;
+	private JPanel panel_1;
+	private JLabel lblN;
+	private JLabel lblFecha;
+	private JTextField textField_3;
+	private JTextField txtAomesda;
+	private JPanel panel_2;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					FrmCDP frame = new FrmCDP();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public FrmCDP() {
+		setTitle("Comprobante de pago");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 584, 530);
+		contentPane = new JPanel();
+		contentPane.setBackground(new Color(176, 196, 222));
+		contentPane.setDoubleBuffered(false);
+		contentPane.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		contentPane.setBorder(null);
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		panel = new JPanel();
+		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Datos del Cliente", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLACK));
+		panel.setBounds(10, 11, 295, 102);
+		contentPane.add(panel);
+		panel.setLayout(null);
+		
+		lblCdigo = new JLabel("C\u00F3digo:");
+		lblCdigo.setBounds(10, 21, 46, 14);
+		panel.add(lblCdigo);
+		
+		lblNombre = new JLabel("Nombre:");
+		lblNombre.setBounds(10, 46, 58, 14);
+		panel.add(lblNombre);
+		
+		lblApellido = new JLabel("Apellido:");
+		lblApellido.setBounds(10, 71, 58, 14);
+		panel.add(lblApellido);
+		
+		txtCodigo = new JTextField();
+		txtCodigo.setEditable(false);
+		txtCodigo.setBounds(76, 18, 86, 20);
+		panel.add(txtCodigo);
+		txtCodigo.setColumns(10);
+		
+		txtNombre = new JTextField();
+		txtNombre.setEditable(false);
+		txtNombre.setBounds(76, 43, 98, 20);
+		panel.add(txtNombre);
+		txtNombre.setColumns(10);
+		
+		txtApellido = new JTextField();
+		txtApellido.setEditable(false);
+		txtApellido.setBounds(76, 68, 109, 20);
+		panel.add(txtApellido);
+		txtApellido.setColumns(10);
+		
+		btnBuscarCliente = new JButton("");
+		btnBuscarCliente.setBackground(new Color(0, 250, 154));
+		btnBuscarCliente.addActionListener(this);
+		btnBuscarCliente.setBorder(null);
+		btnBuscarCliente.setIcon(new ImageIcon(FrmCDP.class.getResource("/img/3643762_find_glass_magnifying_search_zoom_icon (1).png")));
+		btnBuscarCliente.setBounds(227, 18, 46, 33);
+		panel.add(btnBuscarCliente);
+		
+		panel_1 = new JPanel();
+		panel_1.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panel_1.setBounds(315, 21, 243, 78);
+		contentPane.add(panel_1);
+		panel_1.setLayout(null);
+		
+		lblN = new JLabel("N\u00B0:");
+		lblN.setBounds(10, 11, 46, 14);
+		panel_1.add(lblN);
+		
+		lblFecha = new JLabel("Fecha:");
+		lblFecha.setBounds(10, 43, 46, 14);
+		panel_1.add(lblFecha);
+		
+		textField_3 = new JTextField();
+		textField_3.setBounds(40, 8, 86, 20);
+		panel_1.add(textField_3);
+		textField_3.setColumns(10);
+		
+		txtAomesda = new JTextField();
+		txtAomesda.setText("A\u00F1o/Mes/D\u00EDa");
+		txtAomesda.setBounds(50, 40, 86, 20);
+		panel_1.add(txtAomesda);
+		txtAomesda.setColumns(10);
+		
+		panel_2 = new JPanel();
+		panel_2.setBorder(new TitledBorder(null, "Datos de la Torta", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_2.setBounds(10, 124, 548, 137);
+		contentPane.add(panel_2);
+		panel_2.setLayout(null);
+	}
+	public void actionPerformed(ActionEvent arg0) {
+		if (arg0.getSource() == btnBuscarCliente) {
+			actionPerformedBtnBuscarCliente(arg0);
+		}
+	}
+	protected void actionPerformedBtnBuscarCliente(ActionEvent arg0) {
+		DlgCliente d = new DlgCliente();
+		d.setVisible(true);
+	}
+}

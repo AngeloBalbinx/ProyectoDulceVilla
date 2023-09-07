@@ -1,0 +1,93 @@
+package mantenimiento;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import entidad.Cliente;
+import interfaces.ClienteInterfacesDAO;
+import utils.MySQLConexion8;
+
+public class GestionClienteDAO implements ClienteInterfacesDAO{
+
+	@Override
+	public int registrar(Cliente cli) {
+		//Declaración de variables
+		int res=0;
+		Connection con =null;
+		PreparedStatement pstm =null;
+		try {
+			//paso1: Establecer la conexión a la base de datos 
+			con = MySQLConexion8.getConexion();
+			//paso2: Determinar la instrucción SQL ---> Registrar
+			String sql = "insert into tb_cliente values(?,?,?,?,?)";
+			//paso3 : Crear el objeto pstm y enviar la variable sql
+			pstm = con.prepareStatement(sql);
+			//paso4 : Parametros
+			pstm.setString(1, cli.getCodigo());
+			pstm.setString(2, cli.getNombre());
+			pstm.setString(3, cli.getApellido());
+			pstm.setString(4, cli.getDirección());
+			pstm.setString(5, cli.getCelular());
+			//paso5: Ejecutar la instrucción
+			res = pstm.executeUpdate();
+		} catch (Exception e) {
+			System.out.println(">>>>>>> Error en la instrucción SQL- Registrar" + e.getMessage());
+		}finally {
+			try {
+				if(pstm != null)pstm.close();
+				if(con !=null)con.close();
+			} catch (SQLException e2) {
+				System.out.println(">>>>>>>>Error al cerrar la base de datos" + e2.getMessage());
+			}
+		}
+		return res;
+	}
+
+	@Override
+	public int actualizar(Cliente cli) {
+		int res = 0;
+		Connection con =null;
+		PreparedStatement pstm =null;
+		try {
+			//paso1: Establecer la conexión a la base de datos 
+			con = MySQLConexion8.getConexion();
+			//paso2: determinar la instrucción SQL ---> Actualizar
+			String sql = "update tb_cliente set nombre = ?,apellido = ?,direccion = ?,celular= ? where codigo = ?";
+			// paso 3: enviar la instrucción al objeto pstm -->o obtener los comandos SQL
+			pstm = con.prepareStatement(sql);
+			// paso 4:parametros
+			pstm.setString(1, cli.getNombre());
+			pstm.setString(2, cli.getApellido());
+			pstm.setString(3, cli.getDirección());
+			pstm.setString(4, cli.getCelular());
+			pstm.setString(5, cli.getCodigo());
+			// paso 5: ejectura la instrucción
+			res = pstm.executeUpdate();
+		} catch (Exception e) {
+			System.out.println(">>>>>>> Error en la instrucción SQL- Actualizar" + e.getMessage());
+		}finally {
+			try {
+				if(pstm != null)pstm.close();
+				if(con !=null)con.close();
+			} catch (SQLException e2) {
+				System.out.println(">>>>>>>>Error al cerrar la base de datos" + e2.getMessage());
+			}
+		}
+		return res;
+	}
+
+	@Override
+	public int eliminar(String codigo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public ArrayList<Cliente> listarClientes() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

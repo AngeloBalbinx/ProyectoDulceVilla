@@ -1,0 +1,317 @@
+package vista;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
+
+import java.awt.Color;
+import javax.swing.UIManager;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import javax.swing.ImageIcon;
+import java.awt.Cursor;
+import javax.swing.border.LineBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JTable;
+import javax.swing.JScrollPane;
+import java.awt.Font;
+
+public class FrmCDP extends JFrame implements ActionListener {
+
+	private JPanel contentPane;
+	private JPanel panel;
+	private JLabel lblCdigo;
+	private JLabel lblNombre;
+	private JLabel lblApellido;
+	public static JTextField txtCodigo;
+	public static JTextField txtNombre;
+	public static JTextField txtApellido;
+	private JButton btnBuscarCliente;
+	private JPanel panel_1;
+	private JLabel lblN;
+	private JLabel lblFecha;
+	private JTextField textField_3;
+	private JTextField txtAomesda;
+	private JPanel panel_2;
+	private JLabel lblTorta;
+	public static JTextField txtIdTorta;
+	private JButton btnBuscarTorta;
+	public static JTextField txtDescripcionTorta;
+	public static JTextField txtStockTorta;
+	public static JTextField txtPrecioTorta;
+	private JLabel lblCantidad;
+	private JTextField txtCantidad;
+	private JButton btnAgregar;
+	private JButton btnLimpiarTorta;
+	private JTable tbVenta;
+	private JScrollPane scrollPane;
+	private JButton btnLimpiarTabla;
+	private JButton btnFinalizarCompra;
+	private JLabel lblTotal;
+	private JTextField txtTotal;
+	
+	DefaultTableModel model = new DefaultTableModel();
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					FrmCDP frame = new FrmCDP();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public FrmCDP() {
+		setTitle("Comprobante de pago");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 584, 530);
+		contentPane = new JPanel();
+		contentPane.setBackground(new Color(176, 196, 222));
+		contentPane.setDoubleBuffered(false);
+		contentPane.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		contentPane.setBorder(null);
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		panel = new JPanel();
+		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Datos del Cliente", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLACK));
+		panel.setBounds(10, 11, 295, 102);
+		contentPane.add(panel);
+		panel.setLayout(null);
+		
+		lblCdigo = new JLabel("C\u00F3digo:");
+		lblCdigo.setBounds(10, 21, 46, 14);
+		panel.add(lblCdigo);
+		
+		lblNombre = new JLabel("Nombre:");
+		lblNombre.setBounds(10, 46, 58, 14);
+		panel.add(lblNombre);
+		
+		lblApellido = new JLabel("Apellido:");
+		lblApellido.setBounds(10, 71, 58, 14);
+		panel.add(lblApellido);
+		
+		txtCodigo = new JTextField();
+		txtCodigo.setEditable(false);
+		txtCodigo.setBounds(76, 18, 86, 20);
+		panel.add(txtCodigo);
+		txtCodigo.setColumns(10);
+		
+		txtNombre = new JTextField();
+		txtNombre.setEditable(false);
+		txtNombre.setBounds(76, 43, 98, 20);
+		panel.add(txtNombre);
+		txtNombre.setColumns(10);
+		
+		txtApellido = new JTextField();
+		txtApellido.setEditable(false);
+		txtApellido.setBounds(76, 68, 109, 20);
+		panel.add(txtApellido);
+		txtApellido.setColumns(10);
+		
+		btnBuscarCliente = new JButton("");
+		btnBuscarCliente.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnBuscarCliente.setBackground(new Color(0, 250, 154));
+		btnBuscarCliente.addActionListener(this);
+		btnBuscarCliente.setBorder(null);
+		btnBuscarCliente.setIcon(new ImageIcon(FrmCDP.class.getResource("/img/3643762_find_glass_magnifying_search_zoom_icon (1).png")));
+		btnBuscarCliente.setBounds(227, 18, 46, 33);
+		panel.add(btnBuscarCliente);
+		
+		panel_1 = new JPanel();
+		panel_1.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panel_1.setBounds(315, 21, 243, 78);
+		contentPane.add(panel_1);
+		panel_1.setLayout(null);
+		
+		lblN = new JLabel("N\u00B0:");
+		lblN.setBounds(10, 11, 46, 14);
+		panel_1.add(lblN);
+		
+		lblFecha = new JLabel("Fecha:");
+		lblFecha.setBounds(10, 43, 46, 14);
+		panel_1.add(lblFecha);
+		
+		textField_3 = new JTextField();
+		textField_3.setBounds(40, 8, 86, 20);
+		panel_1.add(textField_3);
+		textField_3.setColumns(10);
+		
+		txtAomesda = new JTextField();
+		txtAomesda.setText("A\u00F1o/Mes/D\u00EDa");
+		txtAomesda.setBounds(50, 40, 86, 20);
+		panel_1.add(txtAomesda);
+		txtAomesda.setColumns(10);
+		
+		panel_2 = new JPanel();
+		panel_2.setBorder(new TitledBorder(null, "Datos de la Torta", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_2.setBounds(10, 124, 548, 109);
+		contentPane.add(panel_2);
+		panel_2.setLayout(null);
+		
+		lblTorta = new JLabel("Torta:");
+		lblTorta.setBounds(10, 22, 46, 14);
+		panel_2.add(lblTorta);
+		
+		txtIdTorta = new JTextField();
+		txtIdTorta.setEditable(false);
+		txtIdTorta.setBounds(47, 19, 86, 20);
+		panel_2.add(txtIdTorta);
+		txtIdTorta.setColumns(10);
+		
+		btnBuscarTorta = new JButton("");
+		btnBuscarTorta.addActionListener(this);
+		btnBuscarTorta.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnBuscarTorta.setBorder(null);
+		btnBuscarTorta.setBackground(new Color(0, 250, 154));
+		btnBuscarTorta.setIcon(new ImageIcon(FrmCDP.class.getResource("/img/3643762_find_glass_magnifying_search_zoom_icon (1).png")));
+		btnBuscarTorta.setBounds(144, 11, 46, 33);
+		panel_2.add(btnBuscarTorta);
+		
+		txtDescripcionTorta = new JTextField();
+		txtDescripcionTorta.setEditable(false);
+		txtDescripcionTorta.setBounds(215, 19, 148, 20);
+		panel_2.add(txtDescripcionTorta);
+		txtDescripcionTorta.setColumns(10);
+		
+		txtStockTorta = new JTextField();
+		txtStockTorta.setEditable(false);
+		txtStockTorta.setBounds(384, 19, 54, 20);
+		panel_2.add(txtStockTorta);
+		txtStockTorta.setColumns(10);
+		
+		txtPrecioTorta = new JTextField();
+		txtPrecioTorta.setEditable(false);
+		txtPrecioTorta.setBounds(452, 19, 54, 20);
+		panel_2.add(txtPrecioTorta);
+		txtPrecioTorta.setColumns(10);
+		
+		lblCantidad = new JLabel("Cantidad:");
+		lblCantidad.setBounds(10, 59, 76, 14);
+		panel_2.add(lblCantidad);
+		
+		txtCantidad = new JTextField();
+		txtCantidad.setBounds(69, 56, 86, 20);
+		panel_2.add(txtCantidad);
+		txtCantidad.setColumns(10);
+		
+		btnAgregar = new JButton("Agregar torta");
+		btnAgregar.addActionListener(this);
+		btnAgregar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnAgregar.setIcon(new ImageIcon(FrmCDP.class.getResource("/img/4781840_+_add_circle_create_expand_icon (2).png")));
+		btnAgregar.setBounds(165, 50, 148, 33);
+		panel_2.add(btnAgregar);
+		
+		btnLimpiarTorta = new JButton("Limpiar");
+		btnLimpiarTorta.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnLimpiarTorta.setIcon(new ImageIcon(FrmCDP.class.getResource("/img/8541770_broom_clean_icon.png")));
+		btnLimpiarTorta.setBounds(325, 50, 129, 33);
+		panel_2.add(btnLimpiarTorta);
+		
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 258, 548, 140);
+		contentPane.add(scrollPane);
+		
+		tbVenta = new JTable();
+		tbVenta.setFillsViewportHeight(true);
+		scrollPane.setViewportView(tbVenta);
+		//añadir columnas
+		model.addColumn("idtorta");
+		model.addColumn("Descripción");
+		model.addColumn("Cantidad");
+		model.addColumn("Precio");
+		model.addColumn("Importe");
+		tbVenta.setModel(model);
+		
+		
+		btnLimpiarTabla = new JButton("Limpiar");
+		btnLimpiarTabla.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnLimpiarTabla.setIcon(new ImageIcon(FrmCDP.class.getResource("/img/8541770_broom_clean_icon.png")));
+		btnLimpiarTabla.setBounds(10, 413, 122, 30);
+		contentPane.add(btnLimpiarTabla);
+		
+		btnFinalizarCompra = new JButton("Finalizar Compra");
+		btnFinalizarCompra.setIcon(new ImageIcon(FrmCDP.class.getResource("/img/8824156_ceklist_finish_race_line_icon.png")));
+		btnFinalizarCompra.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnFinalizarCompra.setBounds(142, 413, 178, 30);
+		contentPane.add(btnFinalizarCompra);
+		
+		lblTotal = new JLabel("Total:");
+		lblTotal.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblTotal.setBounds(429, 419, 46, 14);
+		contentPane.add(lblTotal);
+		
+		txtTotal = new JTextField();
+		txtTotal.setBounds(472, 418, 86, 20);
+		contentPane.add(txtTotal);
+		txtTotal.setColumns(10);
+	}
+	public void actionPerformed(ActionEvent arg0) {
+		if (arg0.getSource() == btnAgregar) {
+			actionPerformedBtnAgregar(arg0);
+		}
+		if (arg0.getSource() == btnBuscarTorta) {
+			actionPerformedBtnBuscarTorta(arg0);
+		}
+		if (arg0.getSource() == btnBuscarCliente) {
+			actionPerformedBtnBuscarCliente(arg0);
+		}
+	}
+	protected void actionPerformedBtnBuscarCliente(ActionEvent arg0) {
+		DlgCliente d = new DlgCliente();
+		d.setVisible(true);
+	}
+	protected void actionPerformedBtnBuscarTorta(ActionEvent arg0) {
+		DlgTorta t = new DlgTorta();
+		t.setVisible(true);
+	}
+	protected void actionPerformedBtnAgregar(ActionEvent arg0) {
+		int cant,stock;
+		String idtor,destor;
+		double precio,importe;
+		
+		// obtener los datos de la GUI 
+		idtor = leerIdTor();
+		destor = leerDesTor();
+		cant = leerCantidad();
+		precio = leerPrecio();
+		stock = leerStock();
+	}
+
+	private int leerStock() {
+		return Integer.parseInt(txtStockTorta.getText());
+	}
+
+	private double leerPrecio() {
+		return Double.parseDouble(txtPrecioTorta.getText());
+	}
+
+	private int leerCantidad() {
+		return Integer.parseInt(txtCantidad.getText());
+	}
+
+	private String leerDesTor() {
+		return txtDescripcionTorta.getText();
+	}
+
+	private String leerIdTor() {
+		return txtIdTorta.getText();
+	}
+}

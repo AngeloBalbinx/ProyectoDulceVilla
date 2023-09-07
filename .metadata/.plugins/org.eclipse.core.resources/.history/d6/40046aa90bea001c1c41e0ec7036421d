@@ -1,0 +1,188 @@
+package vista;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
+import entidad.Usuario;
+import mantenimiento.GestionUsuarioDAO;
+
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.ImageIcon;
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.JButton;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class Logueo extends JFrame implements ActionListener {
+
+	private JPanel contentPane;
+	private JLabel lblNewLabel;
+	private JLabel lblUsuario;
+	private JLabel lblNewLabel_1;
+	private JTextField txtUsuario;
+	private JPasswordField txtClave;
+	private JButton btnIngresar;
+	private JButton btnSalir;
+	// instanciar el objeto
+	GestionUsuarioDAO gUser = new GestionUsuarioDAO();
+	// usuario púbblico para acceder al método
+	public static Usuario usuario = new Usuario();
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Logueo frame = new Logueo();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public Logueo() {
+		setTitle("DulceVilla - Acceso al Sistema");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 489, 295);
+		contentPane = new JPanel();
+		contentPane.setBackground(new Color(0, 128, 128));
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(Logueo.class.getResource("/img/Dulce VILLA_logo (1).png")));
+		lblNewLabel.setBounds(29, 44, 150, 150);
+		contentPane.add(lblNewLabel);
+		
+		lblUsuario = new JLabel("Usuario:");
+		lblUsuario.setForeground(Color.WHITE);
+		lblUsuario.setFont(new Font("Tempus Sans ITC", Font.BOLD, 18));
+		lblUsuario.setBounds(204, 54, 86, 25);
+		contentPane.add(lblUsuario);
+		
+		lblNewLabel_1 = new JLabel("Clave:");
+		lblNewLabel_1.setForeground(Color.WHITE);
+		lblNewLabel_1.setFont(new Font("Tempus Sans ITC", Font.BOLD, 18));
+		lblNewLabel_1.setBounds(204, 91, 86, 14);
+		contentPane.add(lblNewLabel_1);
+		
+		txtUsuario = new JTextField();
+		txtUsuario.setBounds(291, 58, 111, 20);
+		contentPane.add(txtUsuario);
+		txtUsuario.setColumns(10);
+		
+		txtClave = new JPasswordField();
+		txtClave.setBounds(291, 89, 111, 20);
+		contentPane.add(txtClave);
+		txtClave.setColumns(10);
+		
+		btnIngresar = new JButton("Ingresar");
+		btnIngresar.addActionListener(this);
+		btnIngresar.setIcon(new ImageIcon(Logueo.class.getResource("/img/3005767_account_door_enter_login_icon (1).png")));
+		btnIngresar.setBounds(204, 160, 124, 34);
+		contentPane.add(btnIngresar);
+		
+		btnSalir = new JButton("Salir");
+		btnSalir.addActionListener(this);
+		btnSalir.setIcon(new ImageIcon(Logueo.class.getResource("/img/1564506_close_exit_logout_power_icon.png")));
+		btnSalir.setBounds(338, 160, 125, 34);
+		contentPane.add(btnSalir);
+	}
+	public void actionPerformed(ActionEvent arg0) {
+		if (arg0.getSource() == btnSalir) {
+			actionPerformedBtnSalir(arg0);
+		}
+		if (arg0.getSource() == btnIngresar) {
+			actionPerformedBtnIngresar(arg0);
+		}
+	}
+	protected void actionPerformedBtnIngresar(ActionEvent arg0) {
+		ValidarAcceso();
+	}
+
+	private void ValidarAcceso() {
+		String user,clave;
+		// Obtener los datos ingresados en la GUI
+		user = getUsuario();
+		clave = getClave();
+		// Validación para que se ingresen los datos
+		if(user ==null || clave == null){
+			return;
+		}else{// si ingresaron el user y la contraseña
+			// llamar al proceso de validación
+			usuario= gUser.ValidarAcceso(user, clave);
+			// validar el resultado del proceso
+			if(usuario == null){
+				mensajeError("Usuario y/o passowrd incorrectos");
+			}else{
+				mensajeExito("Bienvenido " + Logueo.usuario.getNombre() + " " + Logueo.usuario.getApellido());
+				cargarBarraProgreso();
+				}
+			}
+			
+		}
+		
+	
+
+	private void mensajeExito(String msj) {
+		JOptionPane.showMessageDialog(this, msj, "Éxito!", 1);
+		
+	}
+
+	private void cargarBarraProgreso() {
+		FrmPreLoader p = new FrmPreLoader();
+		p.setVisible(true);
+		p.setLocationRelativeTo(this);
+		this.dispose();
+		
+	}
+
+	private void mensajeError(String msj) {
+		JOptionPane.showMessageDialog(this, msj, "Error!", 0);
+		
+	}
+
+	private String getClave() {
+		String clav;
+		if(txtClave.getText().trim().length()==0){
+			mensajeError("Ingresar la clave");
+			txtClave.requestFocus();
+			clav = null;
+		}else{
+			clav = String.valueOf(txtClave.getPassword());
+		}
+			
+		return clav;
+	}
+		
+
+	private String getUsuario() {
+		String user = null;
+		if(txtUsuario.getText().trim().length()==0){
+			mensajeError("Ingresar el usuario");
+			txtUsuario.requestFocus();
+			user = null;
+		}else{
+		user = txtUsuario.getText().trim();
+		}
+		return user;
+	}
+	protected void actionPerformedBtnSalir(ActionEvent arg0) {
+		this.dispose();
+	}
+}

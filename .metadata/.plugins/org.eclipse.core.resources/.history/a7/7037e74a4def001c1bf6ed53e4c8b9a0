@@ -1,0 +1,60 @@
+package mantenimiento;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+
+import entidad.CabeceraCDP;
+import entidad.DetalleCDP;
+import interfaces.VentaInterfacesDAO;
+import utils.MySQLConexion8;
+
+public class GestionVentasDAO implements VentaInterfacesDAO{
+
+	@Override
+	public String numCDP() {
+		String codigo = "C0001";
+		Connection con = null;
+		PreparedStatement pstm = null;
+		ResultSet res = null;
+		try {
+			//1.
+			con = MySQLConexion8.getConexion();
+			//2.
+			String sql = "select substring(max(num_cdp),2)from tb_cab_cdp";
+			//3.
+			pstm = con.prepareStatement(sql);
+			//4.
+			//5. ejecutar la instrucción
+			res = pstm.executeQuery();
+			//6.
+			if(res.next()){
+				DecimalFormat df = new DecimalFormat("0000");
+				codigo = "C" + df.format(Integer.parseInt(res.getString(1))+1);				
+			}
+		
+			
+		} catch (Exception e) {
+			System.out.println("Error al generar número de CDP" + e.getMessage());
+		}finally {
+			try {
+				if(pstm != null)pstm.close();
+				if(res != null)res.close();
+				if(con !=null)con.close();
+			} catch (SQLException e2) {
+				System.out.println(">>>>>>>>Error al cerrar la base de datos" + e2.getMessage());
+			}
+		}
+		return codigo;
+	}
+
+	@Override
+	public int realizarVenta(CabeceraCDP cCdp, ArrayList<DetalleCDP> dCdp) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+}
